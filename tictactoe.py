@@ -51,4 +51,39 @@ def row_choose():
         else:
             selection_row = "none"
 
+# Pedir al usuario que indique que escribir en la posición
             
+def user_write():
+    write = " "
+    while write != "O" and write != "X":
+        write = input ("Indica tu ficha de jugador (O - X) ")
+    return write
+
+# Preguntar si continua jugando
+
+def continue_playin(display):
+    continue_p = False
+    while continue_p == False:
+        continue_p = input ("Quieres seguir jugando (Y o N)? ")
+        if continue_p != "N" and continue_p != "Y":
+            pass
+        elif continue_p == "N":
+            print("Gracias por su participación")
+            row1 = [" ", " ", " "]
+            row2 = [" ", " ", " "]
+            row3 = [" ", " ", " "]
+        elif continue_p == "Y":
+            return True
+        else:
+            pass
+    
+    
+# Ejecucíon de la secuencia de juego
+
+    def result_round(display, colum_choose, user_write):
+        while continue_playin(display):
+            display(row1, row2, row3)
+            position = colum_choose()-1
+            fila = row_choose()
+            fila[position] = user_write()
+            display(row1, row2, row3)
