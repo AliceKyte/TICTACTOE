@@ -80,10 +80,13 @@ def continue_playin(display):
     
 # Ejecucíon de la secuencia de juego
 
-    def result_round(display, colum_choose, user_write):
-        while continue_playin(display):
-            display(row1, row2, row3)
-            position = colum_choose()-1
-            fila = row_choose()
-            fila[position] = user_write()
-            display(row1, row2, row3)
+def result_round(display, colum_choose, user_write):
+    while continue_playin(display):
+        display(row1, row2, row3)
+        position = colum_choose()-1
+        fila = row_choose()
+        fila[position] = user_write()
+        display(row1, row2, row3)
+            
+            
+result_round(display, colum_choose, user_write)
