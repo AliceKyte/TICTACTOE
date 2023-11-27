@@ -41,31 +41,31 @@ def place_marker(board, player_marker, position):
         board[position-1] = player_input(player_marker)
         
 def win_check(board, player_marker):
-    if board[1] == board[2] == board[3]==player_marker:
+    if board[0] == board[1] == board[2]==player_marker:
         print ("you win")
-        return False
-    elif board[4] == board[5] == board[6]==player_marker:
-        print ("you win") 
-        return False
-    elif board[7] == board[8] == board[9]==player_marker:
-        print ("you win")
-        return False
-    elif board[1] == board[5] == board[9]==player_marker:
-        print ("you win")
-        return False 
-    elif board[7] == board[5] == board[3]==player_marker:
-        print ("you win")
-        return False
-    else: 
         return True
+    elif board[3] == board[4] == board[5]==player_marker:
+        print ("you win") 
+        return True
+    elif board[6] == board[7] == board[8]==player_marker:
+        print ("you win")
+        return True
+    elif board[0] == board[4] == board[8]==player_marker:
+        print ("you win")
+        return True 
+    elif board[6] == board[4] == board[2]==player_marker:
+        print ("you win")
+        return True
+    else: 
+        return False
  
  
-board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+board = [" "]*9
 player_marker = 5
 position = 0
         
 display_board(board)
 player_input(player_marker)
-while win_check(board, player_marker):
+while win_check(board, player_marker) == False:
     display_board(board)
     place_marker(board, player_marker, position)
