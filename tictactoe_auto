@@ -14,7 +14,10 @@ def replay():
     play = input ("Quieres continuar juagando Y o N? ")
     while play != "N" and play != "Y":
         play = input ("Quieres continuar juagando Y o N? ")
-    return play
+    if play == "Y":
+        return True
+    else:
+        return False
     
 
 #Elegir jugador
@@ -66,3 +69,15 @@ while win_check(board, player_marker) == False:
     
     place_marker(board, player_marker, position)
     display_board(board)
+    
+while replay():
+    board = [" "]*9
+    display_board(board)
+
+    while win_check(board, player_marker) == False:
+    
+        place_marker(board, player_marker, position)
+        display_board(board)
+
+print("Gracias por tu participación. Hasta la próxima")
+    
