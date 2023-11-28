@@ -10,23 +10,41 @@ def display_board(board):
 
 # Decidir si jugar o no
 
-def replay():
-    play = input ("Quieres continuar juagando Y o N? ")
+def replay(play):
     while play != "N" and play != "Y":
-        play = input ("Quieres continuar juagando Y o N? ")
+        play = input ("Empezamos partida Y o N? ").upper()
     if play == "Y":
         return True
     else:
         return False
     
-
 #Elegir jugador
 
 def player_input(player_marker):
     while player_marker != "X" and player_marker != "O":
-        player_marker = input ("Elige tu marca de jugador X o O: ")
-    return player_marker
+        player_marker = input ("Elige tu marca de jugador X o O: ").upper()
+        player1 = player_marker
+        if player1 == "X":
+            player2 = "O"
+        else:
+            player2 = "X"
+    return (player1, player2)
 
+#Decidir orden de los jugadores
+
+import random
+
+def choose_first(player1,player2):
+    
+    start = random.randint(0,1)
+    
+    if start == 0:
+        print("Jugador O, comienza")
+        return player1
+    else:
+        print("Jugador X, comienza")
+        return player2
+    
 #Marcar casilla solo si vacia
 
 def place_marker(board, player_marker, position):
@@ -37,9 +55,12 @@ def place_marker(board, player_marker, position):
         while board[position-1] == "X" or board[position-1] == "O":
             print ("Esa casilla ya está ocupada")
             position = int(input("Elige una posición del 1 al 9: "))
-        board[position-1] = player_input(player_marker)
+        board[position-1] = player_marker
         
-def win_check(board, player_marker):
+# Comprobación de ganador
+
+        
+def win_check(board):
     if board[0] == board[1] == board[2] != " ":
         print ("you win")
         return True
@@ -55,29 +76,61 @@ def win_check(board, player_marker):
     elif board[6] == board[4] == board[2] != " ":
         print ("you win")
         return True
+    elif board[0] == board[3] == board[6] != " ":
+        print ("you win")
+        return True
+    elif board[1] == board[4] == board[7] != " ":
+        print ("you win")
+        return True
+    elif board[8] == board[5] == board[2] != " ":
+        print ("you win")
+        return True
     else: 
         return False
+    
+#Comprobación de empate
  
+def empate():
+     
+    for x in range (0,9):
+        total = 0
+        if board[x] == "X" or board[x] == "O":
+            total +=1
+    if total == 8:
+        print("Empate")
+        return True
+    else:
+        return False
+ 
+
+
+#-----------------------------------------------------------------------------------------------        
  
 board = [" "]*9
-player_marker = 5
+player_marker = " "
 position = 0
-        
-display_board(board)
-player_input(player_marker)
-while win_check(board, player_marker) == False:
-    
-    place_marker(board, player_marker, position)
-    display_board(board)
-    
-while replay():
+player1 = " "
+player2 = " "
+play = ""
+
+while replay(play):
     board = [" "]*9
-    display_board(board)
+    player_marker = " "
+    player1_marker, player2_marker = player_input(player_marker)
+    player_marker = choose_first(player1_marker,player2_marker) 
+    while win_check(board) == False:
 
-    while win_check(board, player_marker) == False:
-    
-        place_marker(board, player_marker, position)
-        display_board(board)
+        if player_marker == "X":
+            print("Turno del jugador X")
+            place_marker(board, player_marker, position)
+            player_marker = "O"
+        else:
+            player_marker = "O"
+            print("Turno del jugador O")
+            place_marker(board, player_marker, position)
+            player_marker = "X"
+        display_board(board) 
 
-print("Gracias por tu participación. Hasta la próxima")
-    
+else:
+    print("Gracias por tu participación. Hasta la próxima")
+
